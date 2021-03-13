@@ -18,8 +18,25 @@
         <input type="text" name="email" class="form-control" placeholder="Enter email">
         <label for="password">Password:</label>
         <input type="password" name="password" class="form-control" placeholder="Enter Password">
+        <label for="role">Select Role:</label>
+        <select name="roles" class="form-control" id="role">
+            @foreach($roles as $role)
+                <option value="{{$role->id}}">{{$role->name}}</option>
+            @endforeach
+        </select>
+        <br>
         <br>
         <button type="submit" class="btn btn-success">Create</button>
     </form>
     </div>
+@endsection
+@section("script")
+    <script>
+    $(document).ready(function() {
+    $('#role').select2({
+        placeholder : "Select a businesses",
+
+    });
+    });
+    </script>
 @endsection

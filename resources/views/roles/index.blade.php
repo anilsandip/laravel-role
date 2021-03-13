@@ -22,6 +22,7 @@
                 <td><strong>Id</strong></td>
                 <td><strong>Name</strong></td>
                 <td><strong>Slug</strong></td>
+                <td><strong>Permission</strong></td>
                 <td width="250px">Action</td>
             </tr>
             </thead>
@@ -64,6 +65,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'slug', name: 'slug' },
+                    { data: 'permission', name: 'permission' },
                     {data: 'action', name: 'action', orderable: false, searchable: false},
 
                 ]

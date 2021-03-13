@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\user;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->paginate(5);
+        $users = User::with('role')->latest()->paginate(5);
         return view('users.index',compact('users'))
             ->with("i",($users->currentPage()-1)*$users->perPage()+1);
     }
@@ -27,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create',compact('roles'));
     }
 
     /**
@@ -42,6 +44,7 @@ class UserController extends Controller
            'name' => $request->name,
            'email' => $request->email,
            'password' => $request->password,
+            'role_id'=>$request->roles,
         ]);
 
         return redirect('users')->with('success','User Added Successfully!');
@@ -66,7 +69,8 @@ class UserController extends Controller
      */
     public function edit(user $user)
     {
-        return view('users.edit',compact('user'));
+        $roles = Role::all();
+        return view('users.edit',compact('user','roles'));
     }
 
     /**
@@ -78,6 +82,7 @@ class UserController extends Controller
      */
     public function update(Request $request, user $user)
     {
+        $request['role_id'] = $request->roles;
         $user->update($request->all());
         return redirect()->route('users.index')->with('success','User Updated Successfully!');
 

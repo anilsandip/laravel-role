@@ -20,6 +20,7 @@
                 <td><strong>ID</strong></td>
                 <td><strong>Name</strong></td>
                 <td><strong>Email</strong></td>
+                <td><strong>Role</strong></td>
                 <td><strong>Status</strong></td>
                 <td width="250px"><strong>Action</strong></td>
             </tr>
@@ -29,6 +30,7 @@
                     <td>{{$i++}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                    <td>{{@$user->role->name}}</td>
                     <td><input type="checkbox" data-toggle="toggle" data-on="Activated" data-off="Deactivated"
                         data-offstyle="danger" data-id="{{$user->id}}" @if($user->id == Auth::id()) checked disabled @endif
                                @if($user->is_active) checked @endif class="status">
@@ -36,10 +38,10 @@
                     <td>
                         <form action="{{route("users.destroy",$user->id)}}" method="post">
                             @csrf
-                            <a href="{{route("users.show",$user->id)}}" class="btn btn-outline-primary">show</a>
-                            <a href="{{route("users.edit",$user->id)}}" class="btn btn-outline-success">Edit</a>
+                            <a href="{{route("users.show",$user->id)}}" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                            <a href="{{route("users.edit",$user->id)}}" class="btn btn-outline-success"><i class="fas fa-edit"></i></a>
                             @method('delete')
-                            <button type="submit" class="btn btn-outline-danger" @if($user->id == Auth::id()) disabled @endif>Delete</button>
+                            <button type="submit" class="btn btn-outline-danger" @if($user->id == Auth::id()) disabled @endif><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>
